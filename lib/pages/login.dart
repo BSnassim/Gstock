@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gstock/BackEnd/Models/admin_model.dart';
+import 'package:gstock/BackEnd/database_creation.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -8,6 +10,8 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,6 +43,7 @@ class _MyLoginState extends State<MyLogin> {
                       child: Column(
                         children: [
                           TextField(
+                            controller:nameController,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -52,6 +57,7 @@ class _MyLoginState extends State<MyLogin> {
                             height: 30,
                           ),
                           TextField(
+                            controller:passwordController,
                             style: TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -78,7 +84,17 @@ class _MyLoginState extends State<MyLogin> {
                                 backgroundColor: Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      var admins = await Dbcreate().fetchAdmin();
+                                      var admin = Admin(name: nameController.text,
+                                          password: passwordController.text);
+                                      for (var map in admins){
+                                        if(map.name == admin.name && map.password == admin.password){
+                                          Navigator.pushNamed(context, '');
+                                        }
+                                      }
+
+                                    },
                                     icon: Icon(
                                       Icons.arrow_forward,
                                     )),
