@@ -15,14 +15,43 @@ class _MenuState extends State<Menu> {
         appBar: AppBar(
           title: Text('Home Menu'),
         ),
-        body: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            textStyle: const TextStyle(fontSize: 20),
-            padding: const EdgeInsets.all(16)
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size.fromWidth(300),
+                    textStyle: const TextStyle(fontSize: 20),
+                    padding: const EdgeInsets.all(16)
+                ),
+                child: const Text('Members'),
+                onPressed: (){},
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size.fromWidth(300),
+                    textStyle: const TextStyle(fontSize: 20),
+                    padding: const EdgeInsets.all(16)
+                ),
+                child: const Text('Categories'),
+                onPressed: (){},
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size.fromWidth(300),
+                    textStyle: const TextStyle(fontSize: 20),
+                    padding: const EdgeInsets.all(16)
+                ),
+                child: const Text('Components'),
+                onPressed: (){},
+              ),
+
+            ],
           ),
-          child: const Text('Members'),
-          onPressed: (){},
-        ),
+        )
       )
     );
   }
