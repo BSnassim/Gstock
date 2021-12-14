@@ -10,8 +10,12 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.cyan,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Home Menu'),
+        ),
+      )
     );
   }
 }
