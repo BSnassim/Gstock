@@ -90,7 +90,7 @@ class _MyLoginState extends State<MyLogin> {
                                           password: passwordController.text);
                                       for (var map in admins){
                                         if(map.name == admin.name && map.password == admin.password){
-                                          Navigator.pushNamed(context, 'memberlist');
+                                          Navigator.pushNamed(context, 'menu');
                                         }
                                       }
 

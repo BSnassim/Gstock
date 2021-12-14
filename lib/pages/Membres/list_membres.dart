@@ -11,6 +11,8 @@ class MemberList extends StatefulWidget {
 class _MemberListState extends State<MemberList> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Colors.cyan
+    );
   }
 }
