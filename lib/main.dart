@@ -17,6 +17,8 @@ void main() {
       'login': (context) => MyLogin(),
       'menu': (context) => Menu(),
       'memberlist':(context) => MemberList(),
+      'categorylist':(context) => CategoryList(),
+      'componentlist':(context) => ComponentList(),
     },
   ));
 }

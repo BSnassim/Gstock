@@ -10,8 +10,7 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('Home Menu'),
         ),
@@ -26,7 +25,7 @@ class _MenuState extends State<Menu> {
                     padding: const EdgeInsets.all(16)
                 ),
                 child: const Text('Members'),
-                onPressed: (){},
+                onPressed: (){Navigator.pushNamed(context, 'memberlist');},
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -36,7 +35,7 @@ class _MenuState extends State<Menu> {
                     padding: const EdgeInsets.all(16)
                 ),
                 child: const Text('Categories'),
-                onPressed: (){},
+                onPressed: (){Navigator.pushNamed(context, 'categorylist');},
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -46,13 +45,13 @@ class _MenuState extends State<Menu> {
                     padding: const EdgeInsets.all(16)
                 ),
                 child: const Text('Components'),
-                onPressed: (){},
+                onPressed: (){Navigator.pushNamed(context, 'componentlist');},
               ),
 
             ],
           ),
         )
-      )
+
     );
   }
 }
