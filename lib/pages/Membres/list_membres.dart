@@ -12,7 +12,9 @@ class _MemberListState extends State<MemberList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan
+      appBar: AppBar(
+        title: Text('Members'),
+      ),
     );
   }
 }
