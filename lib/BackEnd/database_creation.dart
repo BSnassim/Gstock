@@ -24,13 +24,13 @@ class Dbcreate{
               nom STRING,
               prenom STRING,
               tel1 INTEGER,
-              tel2 INTEGER,
+              tel2 INTEGER
               )
         ''');
 
         await db.execute('''
           CREATE TABLE category(
-          name STRING,
+          name STRING
           )
         ''');
 
@@ -39,14 +39,14 @@ class Dbcreate{
           name STRING,
           obtenue STRING,
           FK_category INTEGER,
-          FOREIGN KEY (FK_category) REFERENCES category (rowid), 
+          FOREIGN KEY (FK_category) REFERENCES category (rowid)
           )
         ''');
 
         await db.execute('''
           CREATE TABLE admin(
           name STRING,
-          password STRING,
+          password STRING
           )
         ''');
 
@@ -54,7 +54,7 @@ class Dbcreate{
           CREATE TABLE emprunt(
           FK_composant INTEGER,
           date STRING,
-          FOREIGN KEY (FK_composant) REFERENCES composant (rowid),
+          FOREIGN KEY (FK_composant) REFERENCES composant (rowid)
           )
         ''');
 
@@ -63,7 +63,7 @@ class Dbcreate{
           FK_composant INTEGER,
           date STRING,
           etat STRING,
-          FOREIGN KEY (FK_composant) REFERENCES composant (rowid),
+          FOREIGN KEY (FK_composant) REFERENCES composant (rowid)
           )
         ''');
       },
