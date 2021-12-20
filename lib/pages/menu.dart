@@ -12,7 +12,7 @@ class _MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Home Menu'),
+          title: const Text('Home Menu'),
         ),
         body: Center(
           child: Column(
@@ -20,7 +20,7 @@ class _MenuState extends State<Menu> {
             children: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    fixedSize: Size.fromWidth(300),
+                    fixedSize: const Size.fromWidth(300),
                     textStyle: const TextStyle(fontSize: 20),
                     padding: const EdgeInsets.all(16)
                 ),
@@ -30,7 +30,7 @@ class _MenuState extends State<Menu> {
               const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    fixedSize: Size.fromWidth(300),
+                    fixedSize: const Size.fromWidth(300),
                     textStyle: const TextStyle(fontSize: 20),
                     padding: const EdgeInsets.all(16)
                 ),
@@ -40,7 +40,7 @@ class _MenuState extends State<Menu> {
               const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    fixedSize: Size.fromWidth(300),
+                    fixedSize: const Size.fromWidth(300),
                     textStyle: const TextStyle(fontSize: 20),
                     padding: const EdgeInsets.all(16)
                 ),

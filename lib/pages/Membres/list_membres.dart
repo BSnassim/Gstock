@@ -13,8 +13,25 @@ class _MemberListState extends State<MemberList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Members'),
+        title: const Text('Members'),
+        actions: [
+          Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: const Icon(
+                  Icons.search,
+                  size: 26.0,
+                ),
+              )
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child : const Icon(Icons.add),
+        onPressed: (){},
       ),
     );
   }
+
 }

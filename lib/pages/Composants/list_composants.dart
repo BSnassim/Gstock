@@ -12,8 +12,25 @@ class _ComponentListState extends State<ComponentList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Components'),
+        title: const Text('Components'),
+        actions: [
+          Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: const Icon(
+                  Icons.search,
+                  size: 26.0,
+                ),
+              )
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child : const Icon(Icons.add),
+        onPressed: (){},
       ),
     );
   }
+
 }

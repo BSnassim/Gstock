@@ -30,7 +30,7 @@ class Dbcreate{
 
         await db.execute('''
           CREATE TABLE category(
-          name STRING
+          name STRING UNIQUE
           )
         ''');
 
@@ -38,6 +38,7 @@ class Dbcreate{
           CREATE TABLE composant(
           name STRING,
           obtenue STRING,
+          stock INTEGER,
           FK_category INTEGER,
           FOREIGN KEY (FK_category) REFERENCES category (rowid)
           )
@@ -70,7 +71,7 @@ class Dbcreate{
       version: 1,
     );
   }
-  //-----ADMIN-----
+  //------------------[ADMIN FUNCTIONS]------------------
   Future<int> insertAdmin(Admin admin) async{
     final db = await main();
     return db.insert(
@@ -89,9 +90,48 @@ class Dbcreate{
       );
     });
   }
-  //-----CATEGORY-----
-  //-----COMPOSANT-----
-  //-----MEMBRE-----
-  //-----EMPRUNT-----
-  //-----RETOUR-----
+  //------------------[CATEGORY  FUNCTIONS]------------------
+  Future<int> insertCateg(Category category) async {
+    final db = await main();
+    return db.insert(
+      'category',
+      category.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+  Future<List<Category>> fetchCateg() async{
+    final db = await main();
+    final List<Map<String, dynamic>> maps = await db.query('category');
+    return List.generate(maps.length, (i){
+      return Category(
+        name: maps[i]['name'],
+      );
+    });
+  }
+  Future<int> deleteCateg(String name) async{ //returns number of items deleted
+    final db = await main();
+
+    int result = await db.delete(
+        "category", //table name
+        where: "name = ?",
+        whereArgs: [name] // use whereArgs to avoid SQL injection
+    );
+    return result;
+  }
+  Future<int> updateCateg(String name, Category item) async{ // returns the number of rows updated
+
+    final db = await main();
+
+    int result = await db.update(
+        "category",
+        item.toMap(),
+        where: "name = ?",
+        whereArgs: [name]
+    );
+    return result;
+  }
+  //------------------[COMPOSANT  FUNCTIONS]------------------
+  //------------------[MEMBRE  FUNCTIONS]------------------
+  //------------------[EMPRUNT  FUNCTIONS]------------------
+  //------------------[RETOUR  FUNCTIONS]------------------
   }

@@ -7,11 +7,13 @@ import 'package:sqflite/sqflite.dart';
   class Composant{
     final String name;
     final DateTime obtenue;
+    final int stock;
     final int category;
 
     Composant({
       required this.name,
       required this.obtenue,
+      required this.stock,
       required this.category,
     });
 
@@ -19,12 +21,13 @@ import 'package:sqflite/sqflite.dart';
       return{
         'name' : name,
         'obtenue' : obtenue.toIso8601String(),
+        'stock' : stock,
         'FK_category' : category,
       };
     }
 
     @override
     String toString() {
-      return 'Composant{name : $name, obtenue : $obtenue, category : $category}';
+      return 'Composant{name : $name, obtenue : $obtenue, stock : $stock, category : $category}';
     }
   }
