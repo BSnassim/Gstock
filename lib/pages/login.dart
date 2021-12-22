@@ -86,10 +86,8 @@ class _MyLoginState extends State<MyLogin> {
                                     color: Colors.white,
                                     onPressed: () async {
                                       var admins = await Dbcreate().fetchAdmin();
-                                      var admin = Admin(name: nameController.text,
-                                          password: passwordController.text);
                                       for (var map in admins){
-                                        if(map.name == admin.name && map.password == admin.password){
+                                        if(map.name == nameController.text && map.password == passwordController.text){
                                           Navigator.pushNamed(context, 'menu');
                                         }
                                       }

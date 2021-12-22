@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gstock/BackEnd/Models/category_model.dart';
+import 'package:gstock/BackEnd/database_creation.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({Key? key}) : super(key: key);
@@ -8,6 +10,20 @@ class CategoryList extends StatefulWidget {
 }
 
 class _CategoryListState extends State<CategoryList> {
+
+  List<Map> categlist = [];
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    var list = await Dbcreate().fetchCateg();
+    for (var element in list) {categlist.add({'id' : element.id, 'name' : element.name});}
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +42,34 @@ class _CategoryListState extends State<CategoryList> {
           ),
         ],
       ),
+      body: SingleChildScrollView(
+        child : Container(
+          child: categlist.isEmpty?Text("No categories to show."):
+          Column(
+            children: categlist.map((categ){
+              return Card(
+                child: ListTile(
+                  title: Text(categ['name']),
+                  trailing: Wrap(children: [
+                    IconButton(
+                        onPressed: (){
+
+                        }, icon: Icon(Icons.edit)),
+                    IconButton(
+                        onPressed: (){
+                          Dbcreate().deleteCateg(categ['id']);
+                          Navigator.pushNamed(context, 'categorylist');
+                        }, icon: Icon(Icons.delete, color: Colors.red,)),
+                  ],),
+                ),
+              );
+            }).toList(),
+          ),
+        )
+      ),
       floatingActionButton: FloatingActionButton(
         child : const Icon(Icons.add),
-        onPressed: (){},
+        onPressed: (){Navigator.pushNamed(context, 'addcateg');},
       ),
     );
   }

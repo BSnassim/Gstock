@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gstock/pages/login.dart';
-import 'package:gstock/pages/register.dart';
-import 'package:gstock/pages/Membres/list_membres.dart';
-import 'package:gstock/pages/menu.dart';
-import 'package:gstock/pages/Categories/list_categories.dart';
-import 'package:gstock/pages/Composants/list_composants.dart';
-import 'package:gstock/pages/Emprunt/list_emprunts.dart';
-import 'package:gstock/pages/Retour/list_retours.dart';
+import 'pages/login.dart';
+import 'pages/register.dart';
+import 'pages/Membres/list_membres.dart';
+import 'pages/menu.dart';
+import 'pages/Categories/list_categories.dart';
+import 'pages/Composants/list_composants.dart';
+import 'pages/Emprunt/list_emprunts.dart';
+import 'pages/Retour/list_retours.dart';
+import 'pages/Categories/add_categories.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -19,6 +20,7 @@ void main() {
       'memberlist':(context) => MemberList(),
       'categorylist':(context) => CategoryList(),
       'componentlist':(context) => ComponentList(),
+      'addcateg':(context) => AddCateg() ,
     },
   ));
 }

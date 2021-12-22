@@ -20,7 +20,8 @@ class Dbcreate{
 
       onCreate: (db, version)async{
         await db.execute('''
-          CREATE TABLE membre(
+          CREATE TABLE IF NOT EXISTS membre(
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
               nom STRING,
               prenom STRING,
               tel1 INTEGER,
@@ -29,42 +30,47 @@ class Dbcreate{
         ''');
 
         await db.execute('''
-          CREATE TABLE category(
+          CREATE TABLE IF NOT EXISTS category(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
           name STRING UNIQUE
           )
         ''');
 
         await db.execute('''
-          CREATE TABLE composant(
+          CREATE TABLE IF NOT EXISTS composant(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
           name STRING,
           obtenue STRING,
           stock INTEGER,
           FK_category INTEGER,
-          FOREIGN KEY (FK_category) REFERENCES category (rowid)
+          FOREIGN KEY (FK_category) REFERENCES category (id)
           )
         ''');
 
         await db.execute('''
-          CREATE TABLE admin(
+          CREATE TABLE IF NOT EXISTS admin(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
           name STRING,
           password STRING
           )
         ''');
 
         await db.execute('''
-          CREATE TABLE emprunt(
+          CREATE TABLE IF NOT EXISTS emprunt(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
           FK_composant INTEGER,
           date STRING,
-          FOREIGN KEY (FK_composant) REFERENCES composant (rowid)
+          FOREIGN KEY (FK_composant) REFERENCES composant (id)
           )
         ''');
 
         await db.execute('''
-          CREATE TABLE retour(
+          CREATE TABLE IF NOT EXISTS retour(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
           FK_composant INTEGER,
           date STRING,
           etat STRING,
-          FOREIGN KEY (FK_composant) REFERENCES composant (rowid)
+          FOREIGN KEY (FK_composant) REFERENCES composant (id)
           )
         ''');
       },
@@ -85,6 +91,7 @@ class Dbcreate{
     final List<Map<String, dynamic>> maps = await db.query('admin');
     return List.generate(maps.length, (i){
       return Admin(
+          id: maps[i]['id'],
           name: maps[i]['name'],
           password: maps[i]['password'],
       );
@@ -104,29 +111,30 @@ class Dbcreate{
     final List<Map<String, dynamic>> maps = await db.query('category');
     return List.generate(maps.length, (i){
       return Category(
+        id: maps[i]['id'],
         name: maps[i]['name'],
       );
     });
   }
-  Future<int> deleteCateg(String name) async{ //returns number of items deleted
+  Future<int> deleteCateg(int id) async{ //returns number of items deleted
     final db = await main();
 
     int result = await db.delete(
         "category", //table name
-        where: "name = ?",
-        whereArgs: [name] // use whereArgs to avoid SQL injection
+        where: "id = ?",
+        whereArgs: [id] // use whereArgs to avoid SQL injection
     );
     return result;
   }
-  Future<int> updateCateg(String name, Category item) async{ // returns the number of rows updated
+  Future<int> updateCateg(int id, Category item) async{ // returns the number of rows updated
 
     final db = await main();
 
     int result = await db.update(
         "category",
         item.toMap(),
-        where: "name = ?",
-        whereArgs: [name]
+        where: "id = ?",
+        whereArgs: [id]
     );
     return result;
   }

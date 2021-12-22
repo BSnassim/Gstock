@@ -5,10 +5,12 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
   class Admin{
+    final int? id;
     final String name;
     final String password;
 
     Admin({
+      this.id,
       required this.name,
       required this.password,
     });

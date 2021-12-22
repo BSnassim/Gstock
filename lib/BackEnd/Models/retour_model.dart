@@ -6,11 +6,13 @@ import 'package:sqflite/sqflite.dart';
 
 
   class Retour {
+    final int? id;
     final int composant;
     final DateTime date;
     final String etat;
 
     Retour({
+      this.id,
       required this.composant,
       required this.date,
       required this.etat,

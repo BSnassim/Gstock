@@ -5,12 +5,14 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
   class Composant{
+    final int? id;
     final String name;
     final DateTime obtenue;
     final int stock;
     final int category;
 
     Composant({
+      this.id,
       required this.name,
       required this.obtenue,
       required this.stock,

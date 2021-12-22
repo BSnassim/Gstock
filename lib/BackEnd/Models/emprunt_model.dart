@@ -5,10 +5,12 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
   class Emprunt{
+    final int? id;
     final int composant;
     final DateTime date;
 
     Emprunt({
+      this.id,
       required this.date,
       required this.composant,
     });
@@ -22,6 +24,6 @@ import 'package:sqflite/sqflite.dart';
 
     @override
     String toString() {
-      return 'Emprunt{composant $composant, date : $date}';
+      return 'Emprunt{composant : $composant, date : $date}';
     }
   }
