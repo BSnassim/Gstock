@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gstock/BackEnd/Models/category_model.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
+import 'package:gstock/pages/Categories/edit_categories.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({Key? key}) : super(key: key);
@@ -53,7 +54,9 @@ class _CategoryListState extends State<CategoryList> {
                   trailing: Wrap(children: [
                     IconButton(
                         onPressed: (){
-
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) =>
+                                  CategoryEdit(id: categ['id'], name: categ['name'])));
                         }, icon: Icon(Icons.edit)),
                     IconButton(
                         onPressed: (){

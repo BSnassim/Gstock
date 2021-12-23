@@ -2,36 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:gstock/BackEnd/Models/category_model.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
 
-class AddCateg extends StatefulWidget {
-  const AddCateg({Key? key}) : super(key: key);
+class CategoryEdit extends StatefulWidget {
+  final int id;
+  final String name;
+
+  const CategoryEdit({Key? key, required this.id, required this.name})
+      : super(key: key);
 
   @override
-  _AddCategState createState() => _AddCategState();
+  _CategoryEditState createState() => _CategoryEditState();
 }
 
-class _AddCategState extends State<AddCateg> {
-  TextEditingController nameController = TextEditingController();
+class _CategoryEditState extends State<CategoryEdit> {
+
+   TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Category'),
+        title: Text('Edit Category'),
       ),
       body: Container(
         padding: EdgeInsets.all(30),
         child: Column(children: [
           TextField(
             controller: nameController,
-            decoration: InputDecoration(hintText: 'Category Name'),
+            decoration: InputDecoration(hintText: widget.name),
           ),
           ElevatedButton(
               onPressed: () {
                 var categ = Category(name: nameController.text);
-                Dbcreate().insertCateg(categ);
+                Dbcreate().updateCateg(widget.id, categ);
                 Navigator.pushNamed(context, 'categorylist');
               },
-              child: Text('Save Category'))
+              child: Text('Edit Category'))
         ]),
       ),
     );

@@ -11,14 +11,14 @@ import 'dart:async';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-class Dbcreate{
 
+class Dbcreate {
   Future<Database> main() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path =join(documentsDirectory.path,"gstock.db");
-      return await openDatabase(path,
-
-      onCreate: (db, version)async{
+    final path = join(documentsDirectory.path, "gstock.db");
+    return await openDatabase(
+      path,
+      onCreate: (db, version) async {
         await db.execute('''
           CREATE TABLE IF NOT EXISTS membre(
               id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -77,8 +77,9 @@ class Dbcreate{
       version: 1,
     );
   }
+
   //------------------[ADMIN FUNCTIONS]------------------
-  Future<int> insertAdmin(Admin admin) async{
+  Future<int> insertAdmin(Admin admin) async {
     final db = await main();
     return db.insert(
       'admin',
@@ -86,17 +87,19 @@ class Dbcreate{
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
-  Future<List<Admin>> fetchAdmin() async{
+
+  Future<List<Admin>> fetchAdmin() async {
     final db = await main();
     final List<Map<String, dynamic>> maps = await db.query('admin');
-    return List.generate(maps.length, (i){
+    return List.generate(maps.length, (i) {
       return Admin(
-          id: maps[i]['id'],
-          name: maps[i]['name'],
-          password: maps[i]['password'],
+        id: maps[i]['id'],
+        name: maps[i]['name'],
+        password: maps[i]['password'],
       );
     });
   }
+
   //------------------[CATEGORY  FUNCTIONS]------------------
   Future<int> insertCateg(Category category) async {
     final db = await main();
@@ -106,40 +109,40 @@ class Dbcreate{
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
-  Future<List<Category>> fetchCateg() async{
+
+  Future<List<Category>> fetchCateg() async {
     final db = await main();
     final List<Map<String, dynamic>> maps = await db.query('category');
-    return List.generate(maps.length, (i){
+    return List.generate(maps.length, (i) {
       return Category(
         id: maps[i]['id'],
         name: maps[i]['name'],
       );
     });
   }
-  Future<int> deleteCateg(int id) async{ //returns number of items deleted
+
+  Future<int> deleteCateg(int id) async {
+    //returns number of items deleted
     final db = await main();
 
-    int result = await db.delete(
-        "category", //table name
+    int result = await db.delete("category", //table name
         where: "id = ?",
         whereArgs: [id] // use whereArgs to avoid SQL injection
-    );
+        );
     return result;
   }
-  Future<int> updateCateg(int id, Category item) async{ // returns the number of rows updated
+
+  Future<int> updateCateg(int id, Category item) async {
+    // returns the number of rows updated
 
     final db = await main();
 
-    int result = await db.update(
-        "category",
-        item.toMap(),
-        where: "id = ?",
-        whereArgs: [id]
-    );
+    int result = await db
+        .update("category", item.toMap(), where: "id = ?", whereArgs: [id]);
     return result;
   }
-  //------------------[COMPOSANT  FUNCTIONS]------------------
-  //------------------[MEMBRE  FUNCTIONS]------------------
-  //------------------[EMPRUNT  FUNCTIONS]------------------
-  //------------------[RETOUR  FUNCTIONS]------------------
-  }
+//------------------[COMPOSANT  FUNCTIONS]------------------
+//------------------[MEMBRE  FUNCTIONS]------------------
+//------------------[EMPRUNT  FUNCTIONS]------------------
+//------------------[RETOUR  FUNCTIONS]------------------
+}
