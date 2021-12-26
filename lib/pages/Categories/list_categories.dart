@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gstock/BackEnd/Models/category_model.dart';
+
 import 'package:gstock/BackEnd/database_creation.dart';
 import 'package:gstock/pages/Categories/edit_categories.dart';
 
