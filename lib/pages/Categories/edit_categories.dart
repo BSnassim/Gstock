@@ -17,6 +17,16 @@ class _CategoryEditState extends State<CategoryEdit> {
 
    TextEditingController nameController = TextEditingController();
 
+   @override
+   void initState() {
+     getData();
+     super.initState();
+   }
+
+   getData(){
+     nameController.text = widget.name;
+   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +38,6 @@ class _CategoryEditState extends State<CategoryEdit> {
         child: Column(children: [
           TextField(
             controller: nameController,
-            decoration: InputDecoration(hintText: widget.name),
           ),
           ElevatedButton(
               onPressed: () {

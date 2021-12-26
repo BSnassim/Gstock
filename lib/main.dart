@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gstock/pages/Membres/add_membres.dart';
 import 'pages/login.dart';
 import 'pages/register.dart';
 import 'pages/Membres/list_membres.dart';
@@ -21,6 +22,7 @@ void main() {
       'categorylist': (context) => CategoryList(),
       'componentlist': (context) => ComponentList(),
       'addcateg': (context) => AddCateg(),
+      'addmem' : (context) => AddMembre(),
     },
   ));
 }
