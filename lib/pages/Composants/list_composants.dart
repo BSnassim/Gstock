@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gstock/BackEnd/database_creation.dart';
 
 class ComponentList extends StatefulWidget {
   const ComponentList({Key? key}) : super(key: key);
@@ -8,6 +9,28 @@ class ComponentList extends StatefulWidget {
 }
 
 class _ComponentListState extends State<ComponentList> {
+  List<Map> complist = [];
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    var list = await Dbcreate().fetchComp();
+    for (var element in list) {
+      complist.add({
+        'id': element.id,
+        'name': element.name,
+        'obtenue': element.obtenue,
+        'stock': element.stock,
+        'category': element.category
+      });
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,15 +45,41 @@ class _ComponentListState extends State<ComponentList> {
                   Icons.search,
                   size: 26.0,
                 ),
-              )
-          ),
+              )),
         ],
       ),
+      body: SingleChildScrollView(
+          child: Container(
+        child: complist.isEmpty
+            ? Text("No categories to show.")
+            : Column(
+                children: complist.map((comp) {
+                  return Card(
+                    child: ListTile(
+                      title: Text(comp['name']),
+                      trailing: Wrap(
+                        children: [
+                          IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                          IconButton(
+                              onPressed: () {
+                                Dbcreate().deleteComp(comp['id']);
+                                Navigator.pushNamed(context, 'complist');
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              )),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+      )),
       floatingActionButton: FloatingActionButton(
-        child : const Icon(Icons.add),
-        onPressed: (){},
+        child: const Icon(Icons.add),
+        onPressed: () {},
       ),
     );
   }
-
 }

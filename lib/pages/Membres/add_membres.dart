@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gstock/BackEnd/Models/membre_model.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
 
@@ -10,7 +11,6 @@ class AddMembre extends StatefulWidget {
 }
 
 class _AddMembreState extends State<AddMembre> {
-
   TextEditingController nomController = TextEditingController();
   TextEditingController prenomController = TextEditingController();
   TextEditingController tel1Controller = TextEditingController();
@@ -36,10 +36,18 @@ class _AddMembreState extends State<AddMembre> {
           TextField(
             controller: tel1Controller,
             decoration: InputDecoration(hintText: 'Telephone 1'),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
           ),
           TextField(
             controller: tel2Controller,
             decoration: InputDecoration(hintText: 'Telephone 2'),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
           ),
           ElevatedButton(
               onPressed: () {

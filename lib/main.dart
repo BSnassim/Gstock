@@ -22,7 +22,8 @@ void main() {
       'categorylist': (context) => CategoryList(),
       'componentlist': (context) => ComponentList(),
       'addcateg': (context) => AddCateg(),
-      'addmem' : (context) => AddMembre(),
+      'addmem': (context) => AddMembre(),
+      'complist': (context) => ComponentList(),
     },
   ));
 }
