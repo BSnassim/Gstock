@@ -60,7 +60,7 @@ class _ComponentListState extends State<ComponentList> {
             : Column(
                 children: complist.map((comp) {
                   return Card(
-                    child: ListTile(
+                    child: ExpansionTile(
                       title: Text(comp['name']),
                       trailing: Wrap(
                         children: [
@@ -80,6 +80,10 @@ class _ComponentListState extends State<ComponentList> {
                               )),
                         ],
                       ),
+                      children: <Widget>[
+                        Text('Stock : ' + comp['stock'].toString()),
+                        Text('Date : ' + comp['obtenue'].toString().replaceRange(10, comp['obtenue'].length, ''))
+                      ],
                     ),
                   );
                 }).toList(),
