@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
 import 'package:gstock/BackEnd/Models/category_model.dart';
+import 'package:gstock/BackEnd/Models/composant_model.dart';
 import 'dart:async';
 
 class AddComp extends StatefulWidget {
@@ -14,6 +15,7 @@ class AddComp extends StatefulWidget {
 class _AddCompState extends State<AddComp> {
   TextEditingController nameCont = TextEditingController();
   TextEditingController stockCont = TextEditingController();
+  TextEditingController dateCont = TextEditingController();
   DateTime selectedDate = DateTime.now();
   Category? selected;
   List<Category> categlist = [];
@@ -26,19 +28,21 @@ class _AddCompState extends State<AddComp> {
 
   getData() async {
     categlist = await Dbcreate().fetchCateg();
-    selected = categlist[1];
+    selected = categlist[0];
     setState(() {});
   }
+
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100));
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
+        dateCont.text = picked.toIso8601String();
       });
     }
   }
@@ -57,10 +61,11 @@ class _AddCompState extends State<AddComp> {
               controller: nameCont,
               decoration: InputDecoration(hintText: 'Component Name'),
             ),
-            IconButton(
-                icon: Icon(Icons.calendar_today),
-                tooltip: 'Date of acquirement',
-                onPressed: () {
+            TextField(
+                controller: dateCont,
+                decoration: InputDecoration(hintText: 'Select the acquirement date'),
+                focusNode: AlwaysDisabledFocusNode(),
+                onTap: () {
                   _selectDate(context);
                 }),
             TextField(
@@ -92,11 +97,24 @@ class _AddCompState extends State<AddComp> {
               }).toList(),
             ),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Composant cp = Composant(
+                      name: nameCont.text,
+                      obtenue: selectedDate,
+                      stock: int.parse(stockCont.text),
+                      category: selected!.id!,
+                  );
+                  Dbcreate().insertComp(cp);
+                  Navigator.pushNamed(context, 'complist');
+                },
                 child: Text('Save Component'))
           ],
         ),
       ),
     );
   }
+}
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }

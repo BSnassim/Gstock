@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
+import 'package:gstock/pages/Composants/add_composants.dart';
 
 class ComponentList extends StatefulWidget {
   const ComponentList({Key? key}) : super(key: key);
@@ -23,11 +24,12 @@ class _ComponentListState extends State<ComponentList> {
       complist.add({
         'id': element.id,
         'name': element.name,
-        'obtenue': element.obtenue,
+        'obtenue': element.obtenue.toIso8601String(),
         'stock': element.stock,
-        'category': element.category
+        'category': element.category,
       });
     }
+    print(complist[0]['name']);
     setState(() {});
   }
 
@@ -51,7 +53,7 @@ class _ComponentListState extends State<ComponentList> {
       body: SingleChildScrollView(
           child: Container(
         child: complist.isEmpty
-            ? Text("No categories to show.")
+            ? Text("No components to show.")
             : Column(
                 children: complist.map((comp) {
                   return Card(
@@ -78,7 +80,10 @@ class _ComponentListState extends State<ComponentList> {
       )),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddComp()));
+        },
       ),
     );
   }
