@@ -37,17 +37,6 @@ class _MenuState extends State<Menu> {
                 child: const Text('Categories'),
                 onPressed: (){Navigator.pushNamed(context, 'categorylist');},
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    fixedSize: const Size.fromWidth(300),
-                    textStyle: const TextStyle(fontSize: 20),
-                    padding: const EdgeInsets.all(16)
-                ),
-                child: const Text('Components'),
-                onPressed: (){Navigator.pushNamed(context, 'componentlist');},
-              ),
-
             ],
           ),
         )

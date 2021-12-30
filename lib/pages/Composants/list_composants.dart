@@ -3,7 +3,9 @@ import 'package:gstock/BackEnd/database_creation.dart';
 import 'package:gstock/pages/Composants/add_composants.dart';
 
 class ComponentList extends StatefulWidget {
-  const ComponentList({Key? key}) : super(key: key);
+  final int id;
+
+  const ComponentList({Key? key, required this.id}) : super(key: key);
 
   @override
   _ComponentListState createState() => _ComponentListState();
@@ -21,15 +23,16 @@ class _ComponentListState extends State<ComponentList> {
   getData() async {
     var list = await Dbcreate().fetchComp();
     for (var element in list) {
-      complist.add({
-        'id': element.id,
-        'name': element.name,
-        'obtenue': element.obtenue.toIso8601String(),
-        'stock': element.stock,
-        'category': element.category,
-      });
+      if (element.category == widget.id) {
+        complist.add({
+          'id': element.id,
+          'name': element.name,
+          'obtenue': element.obtenue.toIso8601String(),
+          'stock': element.stock,
+          'category': element.category,
+        });
+      }
     }
-    print(complist[0]['name']);
     setState(() {});
   }
 
@@ -65,7 +68,11 @@ class _ComponentListState extends State<ComponentList> {
                           IconButton(
                               onPressed: () {
                                 Dbcreate().deleteComp(comp['id']);
-                                Navigator.pushNamed(context, 'complist');
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ComponentList(id: widget.id)));
                               },
                               icon: Icon(
                                 Icons.delete,
@@ -82,7 +89,11 @@ class _ComponentListState extends State<ComponentList> {
         child: const Icon(Icons.add),
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddComp()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddComp(
+                        id: widget.id,
+                      )));
         },
       ),
     );

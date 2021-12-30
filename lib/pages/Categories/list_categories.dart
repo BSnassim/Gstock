@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:gstock/BackEnd/database_creation.dart';
 import 'package:gstock/pages/Categories/edit_categories.dart';
+import 'package:gstock/pages/Composants/list_composants.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({Key? key}) : super(key: key);
@@ -53,6 +54,13 @@ class _CategoryListState extends State<CategoryList> {
                   return Card(
                     child: ListTile(
                       title: Text(categ['name']),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ComponentList(id: categ['id'])));
+                      },
                       trailing: Wrap(
                         children: [
                           IconButton(

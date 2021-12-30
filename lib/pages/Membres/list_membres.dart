@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gstock/BackEnd/Models/membre_model.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
+import 'package:gstock/pages/Membres/add_membres.dart';
 import 'package:gstock/pages/Membres/edit_membres.dart';
 
 class MemberList extends StatefulWidget {
@@ -113,7 +114,8 @@ class _MemberListState extends State<MemberList> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, 'addmem');
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddMembre() ));
         },
       ),
     );

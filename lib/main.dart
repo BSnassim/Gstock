@@ -5,10 +5,8 @@ import 'pages/register.dart';
 import 'pages/Membres/list_membres.dart';
 import 'pages/menu.dart';
 import 'pages/Categories/list_categories.dart';
-import 'pages/Composants/list_composants.dart';
 import 'pages/Emprunt/list_emprunts.dart';
 import 'pages/Retour/list_retours.dart';
-import 'pages/Categories/add_categories.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -20,10 +18,6 @@ void main() {
       'menu': (context) => Menu(),
       'memberlist': (context) => MemberList(),
       'categorylist': (context) => CategoryList(),
-      'componentlist': (context) => ComponentList(),
-      'addcateg': (context) => AddCateg(),
-      'addmem': (context) => AddMembre(),
-      'complist': (context) => ComponentList(),
     },
   ));
 }

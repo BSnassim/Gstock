@@ -5,8 +5,11 @@ import 'package:gstock/BackEnd/Models/category_model.dart';
 import 'package:gstock/BackEnd/Models/composant_model.dart';
 import 'dart:async';
 
+import 'package:gstock/pages/Composants/list_composants.dart';
+
 class AddComp extends StatefulWidget {
-  const AddComp({Key? key}) : super(key: key);
+  final int id;
+  const AddComp({Key? key, required this.id}) : super(key: key);
 
   @override
   _AddCompState createState() => _AddCompState();
@@ -17,7 +20,6 @@ class _AddCompState extends State<AddComp> {
   TextEditingController stockCont = TextEditingController();
   TextEditingController dateCont = TextEditingController();
   DateTime selectedDate = DateTime.now();
-  Category? selected;
   List<Category> categlist = [];
 
   @override
@@ -28,7 +30,6 @@ class _AddCompState extends State<AddComp> {
 
   getData() async {
     categlist = await Dbcreate().fetchCateg();
-    selected = categlist[0];
     setState(() {});
   }
 
@@ -76,36 +77,20 @@ class _AddCompState extends State<AddComp> {
                 FilteringTextInputFormatter.digitsOnly
               ],
             ),
-            DropdownButton<Category>(
-              value: selected,
-              icon: const Icon(Icons.arrow_downward),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
-              ),
-              onChanged: (Category? newValue) {
-                setState(() {
-                  selected = newValue!;
-                });
-              },
-              items:
-                  categlist.map<DropdownMenuItem<Category>>((Category value) {
-                return DropdownMenuItem(
-                  value: value,
-                  child: Text(value.name),
-                );
-              }).toList(),
-            ),
             ElevatedButton(
                 onPressed: () {
                   Composant cp = Composant(
                       name: nameCont.text,
                       obtenue: selectedDate,
                       stock: int.parse(stockCont.text),
-                      category: selected!.id!,
+                      category: widget.id,
                   );
                   Dbcreate().insertComp(cp);
-                  Navigator.pushNamed(context, 'complist');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ComponentList(id: widget.id)));
                 },
                 child: Text('Save Component'))
           ],
