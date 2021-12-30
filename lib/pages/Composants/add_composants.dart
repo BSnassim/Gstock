@@ -20,7 +20,6 @@ class _AddCompState extends State<AddComp> {
   TextEditingController stockCont = TextEditingController();
   TextEditingController dateCont = TextEditingController();
   DateTime selectedDate = DateTime.now();
-  List<Category> categlist = [];
 
   @override
   void initState() {
@@ -29,7 +28,6 @@ class _AddCompState extends State<AddComp> {
   }
 
   getData() async {
-    categlist = await Dbcreate().fetchCateg();
     setState(() {});
   }
 

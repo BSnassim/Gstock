@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gstock/BackEnd/Models/composant_model.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
 import 'package:gstock/pages/Composants/add_composants.dart';
+import 'package:gstock/pages/Composants/edit_composants.dart';
 
 class ComponentList extends StatefulWidget {
   final int id;
@@ -64,7 +66,22 @@ class _ComponentListState extends State<ComponentList> {
                       title: Text(comp['name']),
                       trailing: Wrap(
                         children: [
-                          IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EditComp(
+                                              comp: Composant(
+                                                  id: comp['id'],
+                                                  name: comp['name'],
+                                                  obtenue: DateTime.parse(comp['obtenue']),
+                                                  stock: comp['stock'],
+                                                  category: comp['category']),
+                                              id: widget.id,
+                                            )));
+                              },
+                              icon: Icon(Icons.edit)),
                           IconButton(
                               onPressed: () {
                                 Dbcreate().deleteComp(comp['id']);
@@ -82,7 +99,10 @@ class _ComponentListState extends State<ComponentList> {
                       ),
                       children: <Widget>[
                         Text('Stock : ' + comp['stock'].toString()),
-                        Text('Date : ' + comp['obtenue'].toString().replaceRange(10, comp['obtenue'].length, ''))
+                        Text('Date : ' +
+                            comp['obtenue']
+                                .toString()
+                                .replaceRange(10, comp['obtenue'].length, ''))
                       ],
                     ),
                   );
