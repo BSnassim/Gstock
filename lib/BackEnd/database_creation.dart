@@ -39,7 +39,7 @@ class Dbcreate {
         await db.execute('''
           CREATE TABLE IF NOT EXISTS composant(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name STRING,
+          name STRING UNIQUE,
           obtenue STRING,
           stock INTEGER,
           FK_category INTEGER,
@@ -50,7 +50,7 @@ class Dbcreate {
         await db.execute('''
           CREATE TABLE IF NOT EXISTS admin(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name STRING,
+          name STRING UNIQUE,
           password STRING
           )
         ''');
@@ -84,7 +84,7 @@ class Dbcreate {
     return db.insert(
       'admin',
       admin.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.rollback,
     );
   }
 
@@ -106,7 +106,7 @@ class Dbcreate {
     return db.insert(
       'category',
       category.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.rollback,
     );
   }
 
@@ -138,7 +138,8 @@ class Dbcreate {
     final db = await main();
 
     int result = await db
-        .update("category", item.toMap(), where: "id = ?", whereArgs: [id]);
+        .update("category", item.toMap(), where: "id = ?", whereArgs: [id],
+        conflictAlgorithm: ConflictAlgorithm.rollback);
     return result;
   }
 //------------------[COMPOSANT  FUNCTIONS]------------------
@@ -147,7 +148,7 @@ class Dbcreate {
     return db.insert(
       'composant',
       composant.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.rollback,
     );
   }
 
@@ -182,7 +183,8 @@ class Dbcreate {
     final db = await main();
 
     int result = await db
-        .update("composant", item.toMap(), where: "id = ?", whereArgs: [id]);
+        .update("composant", item.toMap(), where: "id = ?", whereArgs: [id],
+        conflictAlgorithm: ConflictAlgorithm.rollback);
     return result;
   }
 
@@ -192,7 +194,7 @@ class Dbcreate {
     return db.insert(
       'membre',
       membre.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.rollback,
     );
   }
 
@@ -227,7 +229,8 @@ class Dbcreate {
     final db = await main();
 
     int result = await db
-        .update("membre", item.toMap(), where: "id = ?", whereArgs: [id]);
+        .update("membre", item.toMap(), where: "id = ?", whereArgs: [id],
+        conflictAlgorithm: ConflictAlgorithm.rollback);
     return result;
   }
 
@@ -237,7 +240,7 @@ class Dbcreate {
     return db.insert(
       'emprunt',
       emprunt.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.rollback,
     );
   }
 
@@ -270,7 +273,8 @@ class Dbcreate {
     final db = await main();
 
     int result = await db
-        .update("emprunt", item.toMap(), where: "id = ?", whereArgs: [id]);
+        .update("emprunt", item.toMap(), where: "id = ?", whereArgs: [id],
+        conflictAlgorithm: ConflictAlgorithm.rollback);
     return result;
   }
 
@@ -280,7 +284,7 @@ class Dbcreate {
     return db.insert(
       'retour',
       retour.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.rollback,
     );
   }
 
@@ -314,7 +318,8 @@ class Dbcreate {
     final db = await main();
 
     int result = await db
-        .update("retour", item.toMap(), where: "id = ?", whereArgs: [id]);
+        .update("retour", item.toMap(), where: "id = ?", whereArgs: [id],
+        conflictAlgorithm: ConflictAlgorithm.rollback);
     return result;
   }
 

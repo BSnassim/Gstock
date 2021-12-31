@@ -108,7 +108,8 @@ class _ComponentListState extends State<ComponentList> {
                         Text('Date : ' +
                             comp['obtenue']
                                 .toString()
-                                .replaceRange(10, comp['obtenue'].length, ''))
+                                .replaceRange(10, comp['obtenue'].length, '')),
+                        ElevatedButton(onPressed: (){}, child: const Text('Use'))
                       ],
                     ),
                   );

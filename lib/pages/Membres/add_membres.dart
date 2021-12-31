@@ -62,7 +62,7 @@ class _AddMembreState extends State<AddMembre> {
                     nom: nomController.text,
                     prenom: prenomController.text,
                     tel1: int.parse(tel1Controller.text),
-                    tel2: int.parse(tel1Controller.text));
+                    tel2: int.parse(tel2Controller.text));
                 Dbcreate().insertMem(mem);
                 Navigator.pushNamed(context, 'memberlist');
               },

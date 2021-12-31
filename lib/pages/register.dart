@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gstock/BackEnd/Models/admin_model.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
+import 'package:sqflite/sqflite.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class MyRegister extends StatefulWidget {
 class _MyRegisterState extends State<MyRegister> {
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,7 +69,6 @@ class _MyRegisterState extends State<MyRegister> {
                                   borderRadius: BorderRadius.circular(10),
                                 )),
                           ),
-
                           SizedBox(
                             height: 30,
                           ),
@@ -112,10 +113,19 @@ class _MyRegisterState extends State<MyRegister> {
                                 backgroundColor: Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
-                                    onPressed: () {
-                                      var admin = Admin(name: nameController.text,
+                                    onPressed: () async {
+                                      var admin = Admin(
+                                          name: nameController.text,
                                           password: passwordController.text);
-                                      Dbcreate().insertAdmin(admin);
+                                      var error = 0;
+                                        await Dbcreate().insertAdmin(admin).catchError( (E){ScaffoldMessenger.of(context)
+                                            .showSnackBar( const SnackBar(
+                                            content: Text("Sign up failed")));
+                                        error = 1;
+                                        } );
+                                      if ( error == 0 ){ScaffoldMessenger.of(context)
+                                          .showSnackBar( const SnackBar(
+                                          content: Text("Sign up successful")));}
                                     },
                                     icon: Icon(
                                       Icons.arrow_forward,
