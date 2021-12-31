@@ -37,10 +37,16 @@ class _ComponentListState extends State<ComponentList> {
     }
     setState(() {});
   }
+  Future<bool> _onWillPop() async{
+    await Navigator.pushNamed(context, 'categorylist');
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
       appBar: AppBar(
         title: const Text('Components'),
         actions: [
@@ -120,6 +126,6 @@ class _ComponentListState extends State<ComponentList> {
                       )));
         },
       ),
-    );
+    ));
   }
 }

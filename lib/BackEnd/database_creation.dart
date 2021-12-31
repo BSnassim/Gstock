@@ -43,7 +43,7 @@ class Dbcreate {
           obtenue STRING,
           stock INTEGER,
           FK_category INTEGER,
-          FOREIGN KEY (FK_category) REFERENCES category (id)
+          FOREIGN KEY (FK_category) REFERENCES category (id) ON DELETE CASCADE
           )
         ''');
 
@@ -60,7 +60,7 @@ class Dbcreate {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           FK_composant INTEGER,
           date STRING,
-          FOREIGN KEY (FK_composant) REFERENCES composant (id)
+          FOREIGN KEY (FK_composant) REFERENCES composant (id) ON DELETE CASCADE
           )
         ''');
 
@@ -70,7 +70,7 @@ class Dbcreate {
           FK_composant INTEGER,
           date STRING,
           etat STRING,
-          FOREIGN KEY (FK_composant) REFERENCES composant (id)
+          FOREIGN KEY (FK_composant) REFERENCES composant (id) ON DELETE CASCADE
           )
         ''');
       },

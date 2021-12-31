@@ -26,10 +26,16 @@ class _CategoryEditState extends State<CategoryEdit> {
    getData(){
      nameController.text = widget.name;
    }
+   Future<bool> _onWillPop() async{
+     await Navigator.pushNamed(context, 'categorylist');
+     return false;
+   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
       appBar: AppBar(
         title: Text('Edit Category'),
       ),
@@ -48,6 +54,6 @@ class _CategoryEditState extends State<CategoryEdit> {
               child: Text('Edit Category'))
         ]),
       ),
-    );
+    ));
   }
 }

@@ -33,10 +33,16 @@ class _MemberListState extends State<MemberList> {
     }
     setState(() {});
   }
+  Future<bool> _onWillPop() async{
+    await Navigator.pushNamed(context, 'menu');
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
       appBar: AppBar(
         title: const Text('Members'),
         actions: [
@@ -118,6 +124,6 @@ class _MemberListState extends State<MemberList> {
               MaterialPageRoute(builder: (context) => AddMembre() ));
         },
       ),
-    );
+    ));
   }
 }

@@ -30,10 +30,16 @@ class _MembreEditState extends State<MembreEdit> {
     tel1Controller.text = widget.membre.tel1.toString();
     tel2Controller.text = widget.membre.tel2.toString();
   }
+  Future<bool> _onWillPop() async{
+    await Navigator.pushNamed(context, 'memberlist');
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
       appBar: AppBar(
         title: Text('Edit Member'),
       ),
@@ -65,6 +71,6 @@ class _MembreEditState extends State<MembreEdit> {
               child: Text('Edit Member'))
         ]),
       ),
-    );
+    ));
   }
 }

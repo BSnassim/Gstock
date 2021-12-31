@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gstock/pages/Membres/add_membres.dart';
 import 'pages/login.dart';
 import 'pages/register.dart';
 import 'pages/Membres/list_membres.dart';

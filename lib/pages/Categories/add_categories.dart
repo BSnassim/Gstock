@@ -12,28 +12,35 @@ class AddCateg extends StatefulWidget {
 class _AddCategState extends State<AddCateg> {
   TextEditingController nameController = TextEditingController();
 
+  Future<bool> _onWillPop() async{
+    await Navigator.pushNamed(context, 'categorylist');
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Category'),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(30),
-        child: Column(children: [
-          TextField(
-            controller: nameController,
-            decoration: InputDecoration(hintText: 'Category Name'),
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Add Category'),
           ),
-          ElevatedButton(
-              onPressed: () {
-                var categ = Category(name: nameController.text);
-                Dbcreate().insertCateg(categ);
-                Navigator.pushNamed(context, 'categorylist');
-              },
-              child: Text('Save Category'))
-        ]),
-      ),
-    );
+          body: Container(
+            padding: EdgeInsets.all(30),
+            child: Column(children: [
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(hintText: 'Category Name'),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    var categ = Category(name: nameController.text);
+                    Dbcreate().insertCateg(categ);
+                    Navigator.pushNamed(context, 'categorylist');
+                  },
+                  child: Text('Save Category'))
+            ]),
+          ),
+        ));
   }
 }

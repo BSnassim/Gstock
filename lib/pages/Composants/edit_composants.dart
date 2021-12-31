@@ -48,10 +48,20 @@ class _EditCompState extends State<EditComp> {
       });
     }
   }
+  Future<bool> _onWillPop() async{
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ComponentList(id: widget.id)));
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
       appBar: AppBar(
         title: Text('Edit a component'),
       ),
@@ -94,7 +104,7 @@ class _EditCompState extends State<EditComp> {
           ],
         ),
       ),
-    );
+    ));
   }
 }
 class AlwaysDisabledFocusNode extends FocusNode {

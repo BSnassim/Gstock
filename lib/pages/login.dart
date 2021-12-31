@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gstock/BackEnd/Models/admin_model.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
 
@@ -12,9 +13,16 @@ class MyLogin extends StatefulWidget {
 class _MyLoginState extends State<MyLogin> {
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
+  Future<bool> _onWillPop() async{
+    await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Container(
       decoration: BoxDecoration(
         image: DecorationImage(
             image: AssetImage('assets/login.png'), fit: BoxFit.cover),
@@ -43,7 +51,7 @@ class _MyLoginState extends State<MyLogin> {
                       child: Column(
                         children: [
                           TextField(
-                            controller:nameController,
+                            controller: nameController,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -57,7 +65,7 @@ class _MyLoginState extends State<MyLogin> {
                             height: 30,
                           ),
                           TextField(
-                            controller:passwordController,
+                            controller: passwordController,
                             style: TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -85,13 +93,15 @@ class _MyLoginState extends State<MyLogin> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () async {
-                                      var admins = await Dbcreate().fetchAdmin();
-                                      for (var map in admins){
-                                        if(map.name == nameController.text && map.password == passwordController.text){
+                                      var admins =
+                                          await Dbcreate().fetchAdmin();
+                                      for (var map in admins) {
+                                        if (map.name == nameController.text &&
+                                            map.password ==
+                                                passwordController.text) {
                                           Navigator.pushNamed(context, 'menu');
                                         }
                                       }
-
                                     },
                                     icon: Icon(
                                       Icons.arrow_forward,
@@ -119,7 +129,6 @@ class _MyLoginState extends State<MyLogin> {
                                 ),
                                 style: ButtonStyle(),
                               ),
-
                             ],
                           )
                         ],
@@ -132,6 +141,6 @@ class _MyLoginState extends State<MyLogin> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

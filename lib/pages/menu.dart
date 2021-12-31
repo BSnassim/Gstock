@@ -8,9 +8,15 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  Future<bool> _onWillPop() async{
+    await Navigator.pushNamed(context, 'login');
+    return false;
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
         appBar: AppBar(
           title: const Text('Home Menu'),
         ),
@@ -41,6 +47,6 @@ class _MenuState extends State<Menu> {
           ),
         )
 
-    );
+    ));
   }
 }

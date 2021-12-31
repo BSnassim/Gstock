@@ -45,10 +45,20 @@ class _AddCompState extends State<AddComp> {
       });
     }
   }
+  Future<bool> _onWillPop() async{
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ComponentList(id: widget.id)));
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
       appBar: AppBar(
         title: Text('Add a component'),
       ),
@@ -94,7 +104,7 @@ class _AddCompState extends State<AddComp> {
           ],
         ),
       ),
-    );
+    ));
   }
 }
 class AlwaysDisabledFocusNode extends FocusNode {

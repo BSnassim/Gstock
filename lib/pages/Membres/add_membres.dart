@@ -16,9 +16,16 @@ class _AddMembreState extends State<AddMembre> {
   TextEditingController tel1Controller = TextEditingController();
   TextEditingController tel2Controller = TextEditingController();
 
+  Future<bool> _onWillPop() async{
+    await Navigator.pushNamed(context, 'memberlist');
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
       appBar: AppBar(
         title: Text('Add Membre'),
       ),
@@ -62,6 +69,6 @@ class _AddMembreState extends State<AddMembre> {
               child: Text('Save Membre'))
         ]),
       ),
-    );
+    ));
   }
 }

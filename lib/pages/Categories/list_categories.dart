@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gstock/BackEnd/database_creation.dart';
+import 'package:gstock/pages/Categories/add_categories.dart';
 import 'package:gstock/pages/Categories/edit_categories.dart';
 import 'package:gstock/pages/Composants/list_composants.dart';
 
@@ -27,10 +28,16 @@ class _CategoryListState extends State<CategoryList> {
     }
     setState(() {});
   }
+  Future<bool> _onWillPop() async{
+    await Navigator.pushNamed(context, 'menu');
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
       appBar: AppBar(
         title: const Text('Categories'),
         actions: [
@@ -70,7 +77,7 @@ class _CategoryListState extends State<CategoryList> {
                                     MaterialPageRoute(
                                         builder: (context) => CategoryEdit(
                                             id: categ['id'],
-                                            name: categ['name'])));
+                                            name: categ['name']))).then;
                               },
                               icon: Icon(Icons.edit)),
                           IconButton(
@@ -92,9 +99,9 @@ class _CategoryListState extends State<CategoryList> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, 'addcateg');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddCateg()));
         },
       ),
-    );
+    ));
   }
 }
