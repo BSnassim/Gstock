@@ -19,6 +19,7 @@ class Dbcreate {
     return await openDatabase(
       path,
       onCreate: (db, version) async {
+
         await db.execute('''
           CREATE TABLE IF NOT EXISTS membre(
               id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -74,6 +75,7 @@ class Dbcreate {
           )
         ''');
       },
+      onConfigure: (db) async {await db.execute('PRAGMA foreign_keys=ON');},
       version: 1,
     );
   }
@@ -251,7 +253,7 @@ class Dbcreate {
       return Emprunt(
         id: maps[i]['id'],
         composant: maps[i]['FK_composant'],
-        date: maps[i]['date'],
+        date: DateTime.parse(maps[i]['date']),
       );
     });
   }
@@ -295,7 +297,7 @@ class Dbcreate {
       return Retour(
         id: maps[i]['id'],
         composant: maps[i]['FK_composant'],
-        date: maps[i]['date'],
+        date: DateTime.parse(maps[i]['date']),
         etat: maps[i]['etat'],
       );
     });

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gstock/BackEnd/database_creation.dart';
 
 class ListEmp extends StatefulWidget {
   const ListEmp({Key? key}) : super(key: key);
@@ -8,6 +9,36 @@ class ListEmp extends StatefulWidget {
 }
 
 class _ListEmpState extends State<ListEmp> {
+  List<Map> emplist = [];
+  List<Map> complist = [];
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    var list = await Dbcreate().fetchEmp();
+    for (var element in list) {
+        emplist.add({
+          'id': element.id,
+          'FK_composant': element.composant,
+          'date': element.date.toIso8601String(),
+        });
+    }
+    var liste = await Dbcreate().fetchComp();
+    for (var element in liste) {
+        complist.add({
+          'id': element.id,
+          'name': element.name,
+          'obtenue': element.obtenue.toIso8601String(),
+          'stock': element.stock,
+          'category': element.category,
+        });
+      }
+    setState(() {});
+  }
 
   Future<bool> _onWillPop() async{
     await Navigator.pushNamed(context, 'menu');
@@ -33,6 +64,31 @@ class _ListEmpState extends State<ListEmp> {
                   )),
             ],
           ),
+          body: SingleChildScrollView(
+              child: Container(
+                child: emplist.isEmpty
+                    ? Text("No components in use.")
+                    : Column(
+                  children: emplist.map((emp) {
+                    return Card(
+                      child: ExpansionTile(
+                        title: Text(complist.singleWhere((e) => e['id'] == emp['FK_composant'])['name']),
+                        trailing: Wrap(
+                          children: [
+                            ElevatedButton(onPressed: (){}, child: Text('Return'))
+                          ],
+                        ),
+                        children: <Widget>[
+                          Text('In use since : ' +
+                              emp['date']
+                                  .toString()
+                                  .replaceRange(10, emp['date'].length, '')),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
+              )),
         ));
   }
 }

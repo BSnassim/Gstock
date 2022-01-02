@@ -23,6 +23,7 @@ class _CategoryListState extends State<CategoryList> {
 
   getData() async {
     var list = await Dbcreate().fetchCateg();
+    categlist.clear();
     for (var element in list) {
       categlist.add({'id': element.id, 'name': element.name});
     }
@@ -83,7 +84,9 @@ class _CategoryListState extends State<CategoryList> {
                           IconButton(
                               onPressed: () {
                                 Dbcreate().deleteCateg(categ['id']);
-                                Navigator.pushNamed(context, 'categorylist');
+                                setState(() {
+                                  getData();
+                                });
                               },
                               icon: Icon(
                                 Icons.delete,

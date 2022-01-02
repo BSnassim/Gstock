@@ -22,6 +22,7 @@ class _MemberListState extends State<MemberList> {
 
   getData() async {
     var list = await Dbcreate().fetchMem();
+    memlist.clear();
     for (var element in list) {
       memlist.add({
         'id': element.id,
@@ -106,7 +107,9 @@ class _MemberListState extends State<MemberList> {
                 IconButton(
                     onPressed: () {
                       Dbcreate().deleteMem(memlist.elementAt(index)['id']);
-                      Navigator.pushNamed(context, 'memberlist');
+                      setState(() {
+                        getData();
+                      });
                     },
                     icon: Icon(
                       Icons.delete,
