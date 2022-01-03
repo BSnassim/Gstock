@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gstock/BackEnd/database_creation.dart';
 
 class ListRet extends StatefulWidget {
   const ListRet({Key? key}) : super(key: key);
@@ -8,8 +9,39 @@ class ListRet extends StatefulWidget {
 }
 
 class _ListRetState extends State<ListRet> {
+  List<Map> retlist = [];
+  List<Map> complist = [];
 
-  Future<bool> _onWillPop() async{
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    var list = await Dbcreate().fetchRet();
+    for (var e in list) {
+      retlist.add({
+        'id': e.id,
+        'FK_composant': e.composant,
+        'etat': e.etat,
+        'date': e.date.toIso8601String(),
+      });
+    }
+    var liste = await Dbcreate().fetchComp();
+    for (var element in liste) {
+      complist.add({
+        'id': element.id,
+        'name': element.name,
+        'obtenue': element.obtenue.toIso8601String(),
+        'stock': element.stock,
+        'category': element.category,
+      });
+    }
+    setState(() {});
+  }
+
+  Future<bool> _onWillPop() async {
     await Navigator.pushNamed(context, 'menu');
     return false;
   }
@@ -20,7 +52,7 @@ class _ListRetState extends State<ListRet> {
         onWillPop: _onWillPop,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Returned Components'),
+            title:  const Text('Returned Components'),
             actions: [
               Padding(
                   padding: const EdgeInsets.only(right: 20.0),
@@ -33,6 +65,28 @@ class _ListRetState extends State<ListRet> {
                   )),
             ],
           ),
+          body: SingleChildScrollView(
+              child: Container(
+            child: retlist.isEmpty
+                ? Text("No components returned.")
+                : Column(
+                    children: retlist.map((ret) {
+                      return Card(
+                        child: ExpansionTile(
+                          title: Text(complist.singleWhere(
+                              (e) => e['id'] == ret['FK_composant'])['name']),
+                          children: <Widget>[
+                            Text('Returned on : ' +
+                                ret['date']
+                                    .toString()
+                                    .replaceRange(10, ret['date'].length, '')),
+                            Text('State :' + ret['etat'])
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+          )),
         ));
   }
 }
