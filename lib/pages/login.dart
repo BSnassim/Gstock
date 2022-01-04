@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gstock/BackEnd/Models/admin_model.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
 
 class MyLogin extends StatefulWidget {

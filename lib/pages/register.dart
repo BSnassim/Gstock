@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gstock/BackEnd/Models/admin_model.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
-import 'package:sqflite/sqflite.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
