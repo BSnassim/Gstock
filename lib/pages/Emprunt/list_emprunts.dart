@@ -13,6 +13,7 @@ class ListEmp extends StatefulWidget {
 class _ListEmpState extends State<ListEmp> {
   List<Map> emplist = [];
   List<Map> complist = [];
+  List<Map> memlist = [];
 
   @override
   void initState() {
@@ -26,6 +27,7 @@ class _ListEmpState extends State<ListEmp> {
       emplist.add({
         'id': element.id,
         'FK_composant': element.composant,
+        'FK_member': element.member,
         'date': element.date.toIso8601String(),
       });
     }
@@ -37,6 +39,14 @@ class _ListEmpState extends State<ListEmp> {
         'obtenue': element.obtenue.toIso8601String(),
         'stock': element.stock,
         'category': element.category,
+      });
+    }
+    var listee = await Dbcreate().fetchMem();
+    for (var element in listee) {
+      memlist.add({
+        'id': element.id,
+        'nom': element.nom,
+        'prenom': element.prenom,
       });
     }
     setState(() {});
@@ -85,6 +95,7 @@ class _ListEmpState extends State<ListEmp> {
                                         MaterialPageRoute(
                                             builder: (context) => AddRetour(
                                                 id: emp['id'],
+                                                memid: emp['FK_member'],
                                                 CP: Composant(
                                                     id: complist.singleWhere((e) =>
                                                             e['id'] == emp['FK_composant'])[
@@ -101,6 +112,9 @@ class _ListEmpState extends State<ListEmp> {
                             ],
                           ),
                           children: <Widget>[
+                            Text('By : ' + memlist.singleWhere(
+                                    (e) => e['id'] == emp['FK_member'])['nom'] + ' ' + memlist.singleWhere(
+                                    (e) => e['id'] == emp['FK_member'])['prenom']),
                             Text('In use since : ' +
                                 emp['date']
                                     .toString()

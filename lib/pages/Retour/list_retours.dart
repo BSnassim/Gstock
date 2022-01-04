@@ -11,6 +11,7 @@ class ListRet extends StatefulWidget {
 class _ListRetState extends State<ListRet> {
   List<Map> retlist = [];
   List<Map> complist = [];
+  List<Map> memlist = [];
 
   @override
   void initState() {
@@ -24,6 +25,7 @@ class _ListRetState extends State<ListRet> {
       retlist.add({
         'id': e.id,
         'FK_composant': e.composant,
+        'FK_member': e.member,
         'etat': e.etat,
         'date': e.date.toIso8601String(),
       });
@@ -36,6 +38,14 @@ class _ListRetState extends State<ListRet> {
         'obtenue': element.obtenue.toIso8601String(),
         'stock': element.stock,
         'category': element.category,
+      });
+    }
+    var listee = await Dbcreate().fetchMem();
+    for (var element in listee) {
+      memlist.add({
+        'id': element.id,
+        'nom': element.nom,
+        'prenom': element.prenom,
       });
     }
     setState(() {});
@@ -80,6 +90,9 @@ class _ListRetState extends State<ListRet> {
                                 ret['date']
                                     .toString()
                                     .replaceRange(10, ret['date'].length, '')),
+                            Text('By : ' + memlist.singleWhere(
+                                    (e) => e['id'] == ret['FK_member'])['nom'] + ' ' + memlist.singleWhere(
+                                    (e) => e['id'] == ret['FK_member'])['prenom']),
                             Text('State :' + ret['etat'])
                           ],
                         ),

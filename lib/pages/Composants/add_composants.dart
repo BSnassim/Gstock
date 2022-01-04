@@ -68,18 +68,18 @@ class _AddCompState extends State<AddComp> {
           children: [
             TextField(
               controller: nameCont,
-              decoration: InputDecoration(hintText: 'Component Name'),
+              decoration: InputDecoration(labelText: 'Component Name'),
             ),
             TextField(
                 controller: dateCont,
-                decoration: InputDecoration(hintText: 'Select the acquirement date'),
+                decoration: InputDecoration(labelText: 'Acquirement Date'),
                 focusNode: AlwaysDisabledFocusNode(),
                 onTap: () {
                   _selectDate(context);
                 }),
             TextField(
               controller: stockCont,
-              decoration: InputDecoration(hintText: 'Stock'),
+              decoration: InputDecoration(labelText: 'Stock'),
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly

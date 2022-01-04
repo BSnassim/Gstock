@@ -30,7 +30,7 @@ class _AddCategState extends State<AddCateg> {
             child: Column(children: [
               TextField(
                 controller: nameController,
-                decoration: InputDecoration(hintText: 'Category Name'),
+                decoration: InputDecoration(labelText: 'Category Name'),
               ),
               ElevatedButton(
                   onPressed: () {

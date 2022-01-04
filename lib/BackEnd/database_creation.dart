@@ -60,8 +60,10 @@ class Dbcreate {
           CREATE TABLE IF NOT EXISTS emprunt(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           FK_composant INTEGER,
+          FK_member INTEGER,
           date STRING,
-          FOREIGN KEY (FK_composant) REFERENCES composant (id) ON DELETE CASCADE
+          FOREIGN KEY (FK_composant) REFERENCES composant (id) ON DELETE CASCADE,
+          FOREIGN KEY (FK_member) REFERENCES membre (id) ON DELETE CASCADE
           )
         ''');
 
@@ -69,9 +71,11 @@ class Dbcreate {
           CREATE TABLE IF NOT EXISTS retour(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           FK_composant INTEGER,
+          FK_member INTEGER,
           date STRING,
           etat STRING,
-          FOREIGN KEY (FK_composant) REFERENCES composant (id) ON DELETE CASCADE
+          FOREIGN KEY (FK_composant) REFERENCES composant (id) ON DELETE CASCADE,
+          FOREIGN KEY (FK_member) REFERENCES membre (id) ON DELETE CASCADE
           )
         ''');
       },
@@ -253,6 +257,7 @@ class Dbcreate {
       return Emprunt(
         id: maps[i]['id'],
         composant: maps[i]['FK_composant'],
+        member: maps[i]['FK_member'],
         date: DateTime.parse(maps[i]['date']),
       );
     });
@@ -297,6 +302,7 @@ class Dbcreate {
       return Retour(
         id: maps[i]['id'],
         composant: maps[i]['FK_composant'],
+        member: maps[i]['FK_member'],
         date: DateTime.parse(maps[i]['date']),
         etat: maps[i]['etat'],
       );

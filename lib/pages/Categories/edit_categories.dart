@@ -44,6 +44,7 @@ class _CategoryEditState extends State<CategoryEdit> {
         child: Column(children: [
           TextField(
             controller: nameController,
+            decoration: InputDecoration(labelText: "Category Name"),
           ),
           ElevatedButton(
               onPressed: () {

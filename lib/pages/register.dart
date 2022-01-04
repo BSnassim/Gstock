@@ -125,7 +125,8 @@ class _MyRegisterState extends State<MyRegister> {
                                         } );
                                       if ( error == 0 ){ScaffoldMessenger.of(context)
                                           .showSnackBar( const SnackBar(
-                                          content: Text("Sign up successful")));}
+                                          content: Text("Sign up successful")));
+                                      Navigator.pushNamed(context, 'login');}
                                     },
                                     icon: Icon(
                                       Icons.arrow_forward,

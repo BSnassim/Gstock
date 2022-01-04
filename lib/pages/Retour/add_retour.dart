@@ -6,8 +6,10 @@ import 'package:gstock/BackEnd/database_creation.dart';
 class AddRetour extends StatefulWidget {
   final Composant CP;
   final int id;
+  final int memid;
 
-  const AddRetour({Key? key, required this.CP, required this.id}) : super(key: key);
+
+  const AddRetour({Key? key, required this.CP, required this.id, required this.memid}) : super(key: key);
 
   @override
   _AddRetourState createState() => _AddRetourState();
@@ -34,7 +36,7 @@ class _AddRetourState extends State<AddRetour> {
                 child: Column(children: [
                   Text(widget.CP.name),
                   TextField(
-                    decoration: InputDecoration(labelText: 'Stock'),
+                    decoration: InputDecoration(labelText: 'State'),
                     controller: stateCont,
                   ),
                   ElevatedButton(onPressed: () async{
@@ -42,7 +44,7 @@ class _AddRetourState extends State<AddRetour> {
                         obtenue: widget.CP.obtenue,
                         stock: widget.CP.stock + 1,
                         category: widget.CP.category);
-                    Retour ret = Retour(composant: widget.CP.id!, date: DateTime.now(), etat: stateCont.text);
+                    Retour ret = Retour(composant: widget.CP.id!, member: widget.memid, date: DateTime.now(), etat: stateCont.text);
                     await Dbcreate().insertRet(ret);
                     await Dbcreate().updateComp(widget.CP.id!, cmp);
                     await Dbcreate().deleteEmp(widget.id);

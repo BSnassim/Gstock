@@ -71,15 +71,18 @@ class _EditCompState extends State<EditComp> {
           children: [
             TextField(
               controller: nameCont,
+              decoration: InputDecoration(labelText: 'Component Name'),
             ),
             TextField(
                 controller: dateCont,
+                decoration: InputDecoration(labelText: 'Acquirement Date'),
                 focusNode: AlwaysDisabledFocusNode(),
                 onTap: () {
                   _selectDate(context);
                 }),
             TextField(
               controller: stockCont,
+              decoration: InputDecoration(labelText: 'Stock'),
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly

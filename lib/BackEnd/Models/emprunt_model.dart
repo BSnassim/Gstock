@@ -1,29 +1,27 @@
-import 'dart:async';
-
-import 'package:gstock/BackEnd/Models/category_model.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 
   class Emprunt{
     final int? id;
     final int composant;
+    final int member;
     final DateTime date;
 
     Emprunt({
       this.id,
       required this.date,
+      required this.member,
       required this.composant,
     });
 
     Map<String, dynamic> toMap(){
       return{
         'FK_composant' : composant,
+        'FK_member' : member,
         'date' : date.toIso8601String(),
       };
     }
 
     @override
     String toString() {
-      return 'Emprunt{composant : $composant, date : $date}';
+      return 'Emprunt{composant : $composant, member : $member, date : $date}';
     }
   }

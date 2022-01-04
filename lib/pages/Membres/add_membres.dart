@@ -34,15 +34,15 @@ class _AddMembreState extends State<AddMembre> {
         child: Column(children: [
           TextField(
             controller: nomController,
-            decoration: InputDecoration(hintText: 'First Name'),
+            decoration: InputDecoration(labelText: 'First Name'),
           ),
           TextField(
             controller: prenomController,
-            decoration: InputDecoration(hintText: 'Last Name'),
+            decoration: InputDecoration(labelText: 'Last Name'),
           ),
           TextField(
             controller: tel1Controller,
-            decoration: InputDecoration(hintText: 'Telephone 1'),
+            decoration: InputDecoration(labelText: 'Telephone 1'),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.digitsOnly
@@ -50,7 +50,7 @@ class _AddMembreState extends State<AddMembre> {
           ),
           TextField(
             controller: tel2Controller,
-            decoration: InputDecoration(hintText: 'Telephone 2'),
+            decoration: InputDecoration(labelText: 'Telephone 2'),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.digitsOnly

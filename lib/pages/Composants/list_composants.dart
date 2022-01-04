@@ -4,6 +4,7 @@ import 'package:gstock/BackEnd/Models/emprunt_model.dart';
 import 'package:gstock/BackEnd/database_creation.dart';
 import 'package:gstock/pages/Composants/add_composants.dart';
 import 'package:gstock/pages/Composants/edit_composants.dart';
+import 'package:gstock/pages/Emprunt/add_emprunt.dart';
 
 class ComponentList extends StatefulWidget {
   final int id;
@@ -116,22 +117,13 @@ class _ComponentListState extends State<ComponentList> {
                             ElevatedButton(
                                 onPressed: () {
                                   if (comp['stock'] > 0) {
-                                    var emp = Emprunt(
-                                        date: DateTime.now(),
-                                        composant: comp['id']);
                                     var cmp = Composant(
+                                        id: comp['id'],
                                         name: comp['name'],
                                         obtenue: DateTime.parse(comp['obtenue']),
                                         stock: comp['stock'] - 1,
                                         category: comp['category']);
-                                    Dbcreate().insertEmp(emp);
-                                    Dbcreate().updateComp(comp['id'], cmp);
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar( const SnackBar(
-                                        content: Text("Component now in use")));
-                                    setState(() {
-                                      getData();
-                                    });
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddEmp(cmp: cmp)));
                                   } else{ScaffoldMessenger.of(context)
                                       .showSnackBar( const SnackBar(
                                       content: Text("Out of stock")));}

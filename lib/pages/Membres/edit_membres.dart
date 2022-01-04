@@ -48,15 +48,19 @@ class _MembreEditState extends State<MembreEdit> {
         child: Column(children: [
           TextField(
             controller: nomController,
+            decoration: InputDecoration(labelText: 'Member First Name'),
           ),
           TextField(
             controller: prenomController,
+            decoration: InputDecoration(labelText: 'Member Last Name'),
           ),
           TextField(
             controller: tel1Controller,
+            decoration: InputDecoration(labelText: 'Telephone 1'),
           ),
           TextField(
             controller: tel2Controller,
+            decoration: InputDecoration(labelText: 'Telephone 2'),
           ),
           ElevatedButton(
               onPressed: () {
